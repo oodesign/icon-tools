@@ -130,6 +130,7 @@ function CreateWindow(){
 
     var window = COSAlertWindow.new();
     window.setMessageText("Clean up icons");
+    window.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
     window.setInformativeText("Choose which type of layers you'd like to remove, and if shapes should be combined or not.");
     var okbutton = window.addButtonWithTitle("OK");
     var cancelbutton = window.addButtonWithTitle("Cancel");

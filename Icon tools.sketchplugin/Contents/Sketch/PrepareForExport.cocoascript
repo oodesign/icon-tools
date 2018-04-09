@@ -7,6 +7,7 @@ function CreateWindow(){
 
     var window = COSAlertWindow.new();
     window.setMessageText("Generate icons for Export");
+    window.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
     window.setInformativeText("All the symbols containing the 'ExportableIcon/' (or the one you choose) will be processed and prepared for export in a new page called ExportIcons.");
     var okbutton = window.addButtonWithTitle("OK");
     var cancelbutton = window.addButtonWithTitle("Cancel");
