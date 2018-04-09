@@ -34,6 +34,7 @@ And that's it! You just need to go for Export (the default Export, in Sketch), a
 
 <br/>
 -----------------
+<br/>
 
 You may run the "Prepare icons for export" as many times as you want. The ExportIcons page is removed and generated again each time you run the plugin (which is cool to avoid clutter, but something you need to be careful with).
 
