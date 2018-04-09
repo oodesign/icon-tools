@@ -14,7 +14,6 @@ You may choose if you want to remove everything but shapes, juste texts, or othi
 You may also choose if you want to combine all those shapes into a single shape group (which will combine them all using the Union option). 
 <br/>
 
-## prepare icons for export
 ## Prepare icons for export
 
 We are all using the <a href="https://medium.com/design-prototype/sketch-tint-icons-using-nested-symbols-2d52867e0d29">tint hack</a> in our Sketch icons, so that we can have just a single icon, and then override its color in each one of its instances.
