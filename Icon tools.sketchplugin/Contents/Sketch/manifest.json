@@ -1,5 +1,5 @@
 {
-  "appcast" : "https://raw.githubusercontent.com/oodesign/icon-tools/blob/master/appcast.xml",
+  "appcast" : "https://raw.githubusercontent.com/oodesign/icon-tools/master/appcast.xml",
   "commands" : [
     {
       "script" : "PrepareForExport.cocoascript",
