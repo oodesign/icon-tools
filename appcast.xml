@@ -5,6 +5,17 @@
     <link>https://github.com/oodesign/icon-tools/blob/master/appcast.xml</link>
     <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
     <language>en</language>
+	  <item>
+        <title>Version 1.0.5</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</li>
+            </ul>
+          ]]>
+        </description>
+        <enclosure url="https://github.com/oodesign/icon-tools/releases/download/v1.0.4/Icon.tools.v1.0.4.zip" sparkle:version="1.0.5"/>
+      </item>
 	<item>
         <title>Version 1.0.4</title>
         <description>
