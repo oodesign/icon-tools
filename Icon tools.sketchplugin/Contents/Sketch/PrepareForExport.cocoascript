@@ -1,0 +1,159 @@
+          var onRun = function(context) {
+                              var doc = context.document;
+var exporticonspage; 
+var exportedSymbolsCount=0;
+function CreateWindow(){
+
+
+    var window = COSAlertWindow.new();
+    window.setMessageText("Generate icons for Export");
+    window.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+    window.setInformativeText("All the symbols containing the 'ExportableIcon/' (or the one you choose) will be processed and prepared for export in a new page called ExportIcons.");
+    var okbutton = window.addButtonWithTitle("OK");
+    var cancelbutton = window.addButtonWithTitle("Cancel");
+
+    window.addTextLabelWithValue("Process icons containing this string");
+    window.addTextFieldWithValue("ExportableIcon/");
+    window.addTextLabelWithValue("Remove tint symbols with this name");
+    window.addTextFieldWithValue("🎨 color");
+    return window;
+}
+
+
+var iconidentifier = "ExportableIcon/";
+var tintidentifier = "🎨 color";
+var window = CreateWindow();
+var responseCode = HandleWindowResponse(window, window.runModal());
+
+
+function HandleWindowResponse(window, responseCode) {
+    
+    if (responseCode == "1000") { 
+        iconidentifier = window.viewAtIndex(1).stringValue();  
+        tintidentifier = window.viewAtIndex(3).stringValue();
+        return "OK";
+	}
+    else if (responseCode == "1001") {        
+        return "Cancel";
+	}
+    return null;
+}
+
+if(responseCode == "OK"){
+    GenerateExportableAssets();
+    if(exportedSymbolsCount>0)
+        [doc showMessage: "Awesome! "+exportedSymbolsCount+" icons were processed and prepared for export. You may now check the ExportIcons page, or go to Export."];
+    else
+        [doc showMessage: "There are no icons with '"+iconidentifier+"' in its layer name."];
+}
+else if(responseCode == "Cancel")
+{    	
+   	[doc showMessage: "Canceled"];
+}
+
+function GenerateExportableAssets(){
+
+for(var i=0; i < doc.pages().count(); i++){
+    var pagename = doc.pages()[i].name().toString();
+    if(pagename.localeCompare("ExportIcons") == 0)
+    {
+        doc.removePage(doc.pages()[i]);
+        
+    }
+}
+
+if(exporticonspage==null)
+{
+    exporticonspage = context.document.addBlankPage();
+    exporticonspage.setName('ExportIcons');
+}
+
+var allSymbols = context.document.documentData().allSymbols();
+var exportingSymbols = [];
+for(var i=0; i < allSymbols.count(); i++){
+    var symbolName = allSymbols[i].name().toString();
+    if(symbolName.indexOf(iconidentifier) >= 0)
+    {
+        exportingSymbols.push(allSymbols[i]);
+    }        
+}
+
+var counterX = 0;
+var counterY = 0;
+var locationX = 0;
+var locationY = 0;
+var mingutter = 30;
+var nextRowY=0;
+exportedSymbolsCount = exportingSymbols.length;
+for(var i=0; i < exportingSymbols.length; i++){
+    
+    var artboard = MSArtboardGroup.new();
+    var symbolInstance = exportingSymbols[i].newSymbolInstance();
+    var iconWidth = symbolInstance.frame().width();
+    var iconHeight = symbolInstance.frame().height();
+
+
+    artboard.frame().setX(locationX);
+    artboard.frame().setY(locationY);
+    artboard.frame().setWidth(symbolInstance.frame().width());
+    artboard.frame().setHeight(symbolInstance.frame().height());
+    var exportableiconname =  exportingSymbols[i].name().replace(iconidentifier,"");
+    artboard.setName(exportableiconname);
+
+    locationX +=iconWidth + mingutter;
+    if((locationY + iconHeight + mingutter)>nextRowY)
+        nextRowY = locationY + iconHeight + mingutter;
+
+    counterX++;
+    if(counterX>9){
+        counterX=0;
+        counterY++;
+        locationX=0;
+        locationY = nextRowY;
+    }
+
+    artboard.addLayer(symbolInstance);    
+
+    exporticonspage.addLayer(artboard);
+
+
+    var detached = symbolInstance.detachByReplacingWithGroup();
+       
+    var removeLayers = [] ;
+    for(var j=0; j<detached.layers().length;j++){
+        if(detached.layers()[j].name().toString().localeCompare(tintidentifier)==0){
+            removeLayers.push(detached.layers()[j]);
+        }else{    
+            if (detached.layers()[j].className() == "MSShapeGroup") {
+                detached.layers()[j].style().fills().firstObject().color = MSColor.colorWithRed_green_blue_alpha(0.0,0,0,1.0);
+                detached.layers()[j].style().fills().firstObject().isEnabled=true;
+            }    
+
+        }
+    }
+    for(var j=0; j<removeLayers.length;j++){
+        removeLayers[j].removeFromParent();
+    }
+
+    var slice = MSSliceLayer.new();
+   
+    var exportformat = slice.exportOptions().addExportFormat();
+	exportformat.setFileFormat("svg");
+
+    slice.setName(exportableiconname);
+    slice.frame().setWidth(iconWidth);
+    slice.frame().setHeight(iconHeight);
+    slice.format='svg';
+    slice.scale=1;
+    slice.page = exporticonspage;
+    artboard.addLayer(slice);
+
+
+    detached.ungroup();
+}
+}
+
+        
+          
+          };
+          

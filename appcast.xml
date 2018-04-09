@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Icon tools</title>
+    <link>https://github.com/oodesign/icon-tools/blob/master/appcast.xml</link>
+    <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
+    <language>en</language>
+	  <item>
+        <title>Version 1.0.0</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</li>
+            </ul>
+          ]]>
+        </description>
+        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.0"/>
+      </item>
+ </channel>
+</rss>
