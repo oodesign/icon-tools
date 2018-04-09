@@ -1,3 +1,5 @@
+<img src="https://github.com/oodesign/icon-tools/blob/master/Images/Hero.jpg" alt="Icon tools logo"/>
+
 # Icon tools (Sketch plugin)
 
 Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks. 
