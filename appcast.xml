@@ -6,7 +6,7 @@
     <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
     <language>en</language>
 	  <item>
-        <title>Version 1.0.5</title>
+        <title>Version 1.0.6</title>
         <description>
           <![CDATA[
             <ul>
@@ -14,7 +14,7 @@
             </ul>
           ]]>
         </description>
-        <enclosure url=""https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.5"/>
+        <enclosure url=""https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.6"/>
       </item>
 	<item>
         <title>Version 1.0.4</title>
