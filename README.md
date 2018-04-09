@@ -20,12 +20,12 @@ You may also choose if you want to combine all those shapes into a single shape 
 
 We are all using the <a href="https://medium.com/design-prototype/sketch-tint-icons-using-nested-symbols-2d52867e0d29">tint hack</a> in our Sketch icons, so that we can have just a single icon, and then override its color in each one of its instances.
 
-The point is that when you generate assets for the Dev team, the 'hack' is also exported in your SVGs, making the SVG file larger and dirtier.
+The point is that when you generate assets for the Dev team, the 'hack' is also exported in your SVGs, making the SVG file larger and dirtier. We created 'Icon tools' to help with that.
 
 Just run the "Icon tools > Prepare icons for export" from the Plugins menu.
 
 The plugin will scan your whole Sketch file looking for symbols containing a specific string in the name. By default, the string is "ExportableIcon/", but you may change it for the one you use to identify your icon symbols in the Sketch file.
-<br/>
+<br/><br/>
 You may also choose the name of your tint layer. Layers with this name will be removed from the final exportable icons. By default, the tint layer name is "🎨 color" - if you use the <a href="https://github.com/AMoreaux/Sketch-Icons">Sketch Icons plugin</a> (you should, really :) ) that will be familiar to you - . 
 
 The plugin will process all of your icon symbols and generate a new page (called ExportIcons) with all of your icons, but just with the layers that are needed for export (without tints), and with the slices already created.
@@ -33,6 +33,7 @@ The plugin will process all of your icon symbols and generate a new page (called
 And that's it! You just need to go for Export (the default Export, in Sketch), and export all your clean icons.
 
 <br/>
+-----------------
 
 You may run the "Prepare icons for export" as many times as you want. The ExportIcons page is removed and generated again each time you run the plugin (which is cool to avoid clutter, but something you need to be careful with).
 
