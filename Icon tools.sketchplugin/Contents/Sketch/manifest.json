@@ -1,6 +1,6 @@
 {
   "compatibleVersion": 49,
-  "appcast" : "https://github.com/oodesign/icon-tools/blob/master/appcast.xml",
+  "appcast" : "https://raw.githubusercontent.com/oodesign/icon-tools/blob/master/appcast.xml",
   "commands" : [
     {
       "script" : "PrepareForExport.cocoascript",
