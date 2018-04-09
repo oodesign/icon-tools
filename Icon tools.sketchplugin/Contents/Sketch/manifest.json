@@ -24,7 +24,7 @@
     "items" : ["cleanicons","prepareexport"]
   },
   "identifier" : "com.example.sketch.0a887f2f-c79f-4316-b19f-ca74b889bbc8",
-  "version" : "1.0.3",
+  "version" : "1.0.4",
   "description" : "Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.",
   "authorEmail" : "oodesignux@gmail.com",
   "author": "oodesign",
