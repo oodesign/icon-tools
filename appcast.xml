@@ -5,7 +5,7 @@
     <link>https://github.com/oodesign/icon-tools/blob/master/appcast.xml</link>
     <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
     <language>en</language>
-	  <item>
+     <item>
         <title>Version 1.0.2</title>
         <description>
           <![CDATA[
@@ -14,20 +14,9 @@
             </ul>
           ]]>
         </description>
-        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.2"/>
+        <enclosure url="https://github.com/oodesign/merge-duplicate-symbols/archive/master.zip" sparkle:version="1.0.2"/>
       </item>
-	  <item>
-        <title>Version 1.0.1</title>
-        <description>
-          <![CDATA[
-            <ul>
-              <li>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</li>
-            </ul>
-          ]]>
-        </description>
-        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.1"/>
-      </item>
-	   <item>
+     <item>
         <title>Version 1.0.0</title>
         <description>
           <![CDATA[
@@ -36,7 +25,7 @@
             </ul>
           ]]>
         </description>
-        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.0"/>
+        <enclosure url="https://github.com/oodesign/merge-duplicate-symbols/archive/master.zip" sparkle:version="1.0.0"/>
       </item>
  </channel>
 </rss>
