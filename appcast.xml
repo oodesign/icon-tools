@@ -3,7 +3,7 @@
   <channel>
     <title>Icon tools</title>
     <link>https://github.com/oodesign/icon-tools/blob/master/appcast.xml</link>
-    <description>Sketch.app plugin to merge symbols with the same name.</description>
+    <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
     <language>en</language>
       <item>
         <title>Version 1.0.1</title>
