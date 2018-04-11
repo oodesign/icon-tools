@@ -2,7 +2,7 @@
 
 # Icon tools (Sketch plugin)
 
-Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks. 
+Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.
 
 ## Clean icons in Sketch
 
@@ -13,8 +13,12 @@ Simply run the "Icon tools > Clean icons" from the Plugins menu.
 The plugin will scan automatically all groups/symbols in the selected page, and remove all the undesired layers for you. It will also remove useless layer groups.
 You may choose if you want to remove everything but shapes, juste texts, or othing at all.
 <br/>
-You may also choose if you want to combine all those shapes into a single shape group (which will combine them all using the Union option). 
+You may also choose if you want to combine all those shapes into a single shape group (which will combine them all using the Union option).
 <br/>
+
+<img src="https://github.com/oodesign/icon-tools/blob/master/Images/Clean%20icons%20plugin.JPG" alt="Choose what you want to keep and what or want to remove from your icons."/>
+<br/><br/>
+
 
 ## Prepare icons for export
 
@@ -26,7 +30,7 @@ Just run the "Icon tools > Prepare icons for export" from the Plugins menu.
 
 The plugin will scan your whole Sketch file looking for symbols containing a specific string in the name. By default, the string is "ExportableIcon/", but you may change it for the one you use to identify your icon symbols in the Sketch file.
 <br/><br/>
-You may also choose the name of your tint layer. Layers with this name will be removed from the final exportable icons. By default, the tint layer name is "🎨 color" - if you use the <a href="https://github.com/AMoreaux/Sketch-Icons">Sketch Icons plugin</a> (you should, really :) ) that will be familiar to you - . 
+You may also choose the name of your tint layer. Layers with this name will be removed from the final exportable icons. By default, the tint layer name is "🎨 color" - if you use the <a href="https://github.com/AMoreaux/Sketch-Icons">Sketch Icons plugin</a> (you should, really :) ) that will be familiar to you - .
 
 The plugin will process all of your icon symbols and generate a new page (called ExportIcons) with all of your icons, but just with the layers that are needed for export (without tints), and with the slices already created.
 
@@ -37,6 +41,28 @@ And that's it! You just need to go for Export (the default Export, in Sketch), a
 <br/>
 
 You may run the "Prepare icons for export" as many times as you want. The ExportIcons page is removed and generated again each time you run the plugin (which is cool to avoid clutter, but something you need to be careful with).
+
+
+<img src="https://github.com/oodesign/icon-tools/blob/master/Images/Prepare%20icons%20for%20export%20plugin.JPG" alt="Set your tint layer name, and icons containing it will be processed to the ExportIcons page."/>
+<br/><br/>
+
+<a href="http://bit.ly/SketchRunnerWebsite">
+	<img width="160" height="41" src="http://bit.ly/RunnerBadgeBlue" alt="runner-badge-blue">
+</a>
+
+<a href="https://sketchpacks.com/oodesign/icon-tools/install">
+	<img width="160" height="41" src="http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" >
+</a>
+
+<a href="https://www.paypal.me/oodesign">
+	<img width="160" height="41" src="https://github.com/oodesign/icon-tools/blob/master/Images/paypal-badge.png">
+</a>
+
+## Automatic Installation
+
+Search for 'Icon tools' in [Sketchrunner](http://sketchrunner.com/), [Sketchpacks](https://sketchpacks.com/), or [Sketch Toolbox](http://sketchtoolbox.com/) if you have one of those installed.
+
+Once installed, Sketch will automatically notify you when an update is available.
 
 ## Manual Installation
 
@@ -53,4 +79,3 @@ What a great plugin - <a href="https://www.paypal.me/oodesign/3" target="_blank"
 Wow! That really helped me! - <a href="https://www.paypal.me/oodesign/5" target="_blank">Donate 5€</a>
 
 This totally saved my life! Shut up and take my money! :) - <a href="https://www.paypal.me/oodesign/10" target="_blank">Donate 10€</a>
-
