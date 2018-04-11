@@ -1,4 +1,5 @@
 {
+  "compatibleVersion": 48,
   "appcast" : "https://raw.githubusercontent.com/oodesign/icon-tools/master/appcast.xml",
   "commands" : [
     {
