@@ -6,7 +6,7 @@
     <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
     <language>en</language>
      <item>
-        <title>Version 1.0.4</title>
+        <title>Version 1.0.5</title>
         <description>
           <![CDATA[
             <ul>
@@ -14,8 +14,19 @@
             </ul>
           ]]>
         </description>
-        <enclosure url="https://github.com/oodesign/merge-duplicate-symbols/archive/master.zip" sparkle:version="1.0.4"/>
+        <enclosure url="https://github.com/oodesign/merge-duplicate-symbols/archive/master.zip" sparkle:version="1.0.5"/>
       </item>
+       <item>
+          <title>Version 1.0.4</title>
+          <description>
+            <![CDATA[
+              <ul>
+                <li>Added option to choose between selected items, or the whole current page.</li>
+              </ul>
+            ]]>
+          </description>
+          <enclosure url="https://github.com/oodesign/merge-duplicate-symbols/archive/master.zip" sparkle:version="1.0.4"/>
+        </item>
        <item>
           <title>Version 1.0.3</title>
           <description>
