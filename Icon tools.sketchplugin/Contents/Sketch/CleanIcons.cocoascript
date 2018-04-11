@@ -1,197 +1,241 @@
           var onRun = function(context) {
           var doc = context.document;
-var page = context.document.currentPage();
-var matrixFormat;
-var whatShouldWeRemove = "Everything";
-var combineOption="No";
-var layersRemovedCounter=0;
-var groupsRemovedCounter=0;
-var shapesCombinedCounter=0;
-var checkBoxCombineAll;
+  var page = context.document.currentPage();
+  var removeOptionsMatrix;
+  var selectedPageOptionsMatrix;
+  var whatShouldWeRemove = "Everything";
+  var whichLayers = "CurrentPage";
+  var combineOption="No";
+  var layersRemovedCounter=0;
+  var groupsRemovedCounter=0;
+  var shapesCombinedCounter=0;
+  var checkBoxCombineAll;
 
 
-var window = CreateWindow();
-var responseCode = HandleWindowResponse(window, window.runModal());
-if(responseCode == "OK"){
-    removeUselessLayers();
-    removeUselessGroups();
-
-
-    if(combineOption == "Combine")
-    {
-        combineShapes();
-    	removeUselessGroups();
-        [doc showMessage: "Cool! We removed "+layersRemovedCounter+" layers and "+groupsRemovedCounter+" groups, and combined all shapes."];
-    }
-    else
-    {        
-        [doc showMessage: "Cool! We removed "+layersRemovedCounter+" layers and "+groupsRemovedCounter+" groups."];
-    }
-}
-else if(responseCode == "Cancel")
-{    	
-   	[doc showMessage: "Canceled"];
-}
+  var window = CreateWindow();
+  var responseCode = HandleWindowResponse(window, window.runModal());
 
 
 
-function combineShapes()
-{
-layers = page.layers();
-
-for(var i=0; i < layers.count(); i++){
-    var group = layers[i];
-    for(var j=0; j < group.layers().count(); j++){
-        var layer = group.layers()[j];
-        if(j==0)
-            [layer select:true byExpandingSelection:false];
-        else
-            [layer select:true byExpandingSelection:true];
-    }
-    var unionAction = doc.actionsController().actionForID("MSUnionAction");
-    if (unionAction.validate()) {
-        var ope = unionAction.booleanUnion(nil);    }
-}
-}	
-
-function removeUselessLayers(){
-var removeLayers=[];	
+  if(responseCode == "OK"){
+      removeUselessLayers();
+      removeUselessGroups();
 
 
-layers = page.layers();
-for(var i=0; i < layers.count(); i++){
-    mapTextLayers(layers[i], removeLayers);
-}
+      if(combineOption == "Combine")
+      {
+          combineShapes();
+      	removeUselessGroups();
+          [doc showMessage: "Cool! We removed "+layersRemovedCounter+" layers and "+groupsRemovedCounter+" groups, and combined all shapes."];
+      }
+      else
+      {
+          [doc showMessage: "Cool! We removed "+layersRemovedCounter+" layers and "+groupsRemovedCounter+" groups."];
+      }
+  }
+  else if(responseCode == "Cancel")
+  {
+     	[doc showMessage: "Canceled"];
+  }
 
-for(var i=0; i < removeLayers.length; i++){
-    log("We remove "+removeLayers[i].name());
-    removeLayers[i].removeFromParent();
-}
+  function getLayers(){
+      var layers;
+      if(whichLayers=="SelectedLayers")
+          layers = context.selection;
+      else
+          layers = page.layers();
 
-layersRemovedCounter = removeLayers.length;
-}
-
-function removeUselessGroups(){
-
-layers = page.layers();
-for(var i=0; i < layers.count(); i++){
-    if(layers[i].className() == "MSLayerGroup" || layers[i].className() == "MSArtboardGroup"){
-      unrollGroupsInLayer(layers[i]);
-    }
-}
-}
+      return layers;
+  }
 
 
-function mapTextLayers(layer,removeLayers)
-{
-    if(layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup"|| layer.className() == "MSShapeGroup"){
-        for(var i=0; i < layer.layers().count(); i++){
-            mapTextLayers(layer.layers()[i], removeLayers);
-        }
-    }
-    else if(layer.className() != "MSShapePathLayer"){
-        if(whatShouldWeRemove == "Everything"){
-            removeLayers.push(layer);
-        }
-        else if(whatShouldWeRemove == "Texts"){
-            if(layer.className() == "MSTextLayer")
-                removeLayers.push(layer);
-        }
-    }
-}
+  function combineShapes()
+  {
+  layers = getLayers();
 
-function unrollGroupsInLayer(layer){
-  if (layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup") {
-    if(layer.layers().count() == 0) {
-      // This is an empty group, kill it with 🔥
-        layer.removeFromParent();
-        groupsRemovedCounter++;
-    }
-    if(layer.layers().count() == 1 && layer.layers().firstObject().className() == "MSLayerGroup") {
-      // Group contains just another group, so let's call ourselves again
-        var newLayer = layer.ungroup();
-        groupsRemovedCounter++;
-        unrollGroupsInLayer(newLayer.firstObject())
-    } else {
-      var layers = layer.layers()
-      for (var i=0; i < [layers count]; i++) {
-        var layer = [layers objectAtIndex:i]
-        if(layer.className() == "MSLayerGroup"){
-          unrollGroupsInLayer(layer);
+      log("Layers into box: "+layers);
+
+  for(var i=0; i < layers.count(); i++){
+      var group = layers[i];
+      var layersToCombine =[];
+      for(var j=0; j < group.layers().count(); j++){
+          var layer = group.layers()[j];
+          if(j==0)
+              [layer select:true byExpandingSelection:false];
+          else
+              [layer select:true byExpandingSelection:true];
+
+          layersToCombine.push(layer);
+      }
+
+      log("Layers to combine:"+layersToCombine);
+
+      var unionAction = doc.actionsController().actionForID("MSUnionAction");
+      if (unionAction.validate()) {
+          var ope = unionAction.booleanUnion(nil);    }
+  }
+  }
+
+  function removeUselessLayers(){
+  var removeLayers=[];
+
+  layers = getLayers();
+
+  for(var i=0; i < layers.count(); i++){
+      mapTextLayers(layers[i], removeLayers);
+  }
+
+  for(var i=0; i < removeLayers.length; i++){
+      removeLayers[i].removeFromParent();
+  }
+
+  layersRemovedCounter = removeLayers.length;
+  }
+
+  function removeUselessGroups(){
+
+  layers = getLayers();
+
+  for(var i=0; i < layers.count(); i++){
+      if(layers[i].className() == "MSLayerGroup" || layers[i].className() == "MSArtboardGroup"){
+        unrollGroupsInLayer(layers[i]);
+      }
+  }
+  }
+
+
+  function mapTextLayers(layer,removeLayers)
+  {
+      if(layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup"|| layer.className() == "MSShapeGroup"){
+          for(var i=0; i < layer.layers().count(); i++){
+              mapTextLayers(layer.layers()[i], removeLayers);
+          }
+      }
+      else if(layer.className() != "MSShapePathLayer"){
+          if(whatShouldWeRemove == "Everything"){
+              removeLayers.push(layer);
+          }
+          else if(whatShouldWeRemove == "Texts"){
+              if(layer.className() == "MSTextLayer")
+                  removeLayers.push(layer);
+          }
+      }
+  }
+
+  function unrollGroupsInLayer(layer){
+    if (layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup") {
+      if(layer.layers().count() == 0) {
+        // This is an empty group, kill it with 🔥
+          layer.removeFromParent();
+          groupsRemovedCounter++;
+      }
+      if(layer.layers().count() == 1 && layer.layers().firstObject().className() == "MSLayerGroup") {
+        // Group contains just another group, so let's call ourselves again
+          var newLayer = layer.ungroup();
+          groupsRemovedCounter++;
+          unrollGroupsInLayer(newLayer.firstObject())
+      } else {
+        var layers = layer.layers()
+        for (var i=0; i < [layers count]; i++) {
+          var layer = [layers objectAtIndex:i]
+          if(layer.className() == "MSLayerGroup"){
+            unrollGroupsInLayer(layer);
+          }
         }
       }
     }
   }
-}
 
 
-function CreateWindow(){
+  function CreateWindow(){
 
 
-    var window = COSAlertWindow.new();
-    window.setMessageText("Clean up icons");
-    window.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
-    window.setInformativeText("Choose which type of layers you'd like to remove, and if shapes should be combined or not.");
-    var okbutton = window.addButtonWithTitle("OK");
-    var cancelbutton = window.addButtonWithTitle("Cancel");
+      var window = COSAlertWindow.new();
+      window.setMessageText("Clean up icons");
+      window.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+      window.setInformativeText("Choose which type of layers you'd like to remove, and if shapes should be combined or not.");
+      var okbutton = window.addButtonWithTitle("OK");
+      var cancelbutton = window.addButtonWithTitle("Cancel");
 
-    var viewWidth = 300;
-    var viewHeight = 100;
+      var viewWidth = 300;
+      var viewHeight = 170;
 
-    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+      var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+      var buttonFormat;
+      buttonFormat = NSButtonCell.alloc().init();
+      buttonFormat.setButtonType(NSRadioButton);
 
-    var buttonFormat;
-    buttonFormat = NSButtonCell.alloc().init();
-    buttonFormat.setButtonType(NSRadioButton);
+      removeOptionsMatrix = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
+              NSMakeRect(0,0, 300, 100),
+              NSRadioModeMatrix,
+              buttonFormat,
+              3, 1);
 
-    matrixFormat = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
-            NSMakeRect(0,0, 300, 100), 
-            NSRadioModeMatrix, 
-            buttonFormat,
-            3, 1);
+      selectedPageOptionsMatrix = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
+              NSMakeRect(0,70, 300, 100),
+              NSRadioModeMatrix,
+              buttonFormat,
+              2, 1);
 
-    matrixFormat.setCellSize(CGSizeMake(300, 25));
 
-    var cells = matrixFormat.cells();
-    cells.objectAtIndex(0).setTitle("Remove everything but shapes");
-    cells.objectAtIndex(1).setTitle("Remove just text layers");
-    cells.objectAtIndex(2).setTitle("Don't remove anything");
+      removeOptionsMatrix.setCellSize(CGSizeMake(300, 25));
+      selectedPageOptionsMatrix.setCellSize(CGSizeMake(300, 25));
 
-    view.addSubview(matrixFormat);
+      var removeOptionsCells = removeOptionsMatrix.cells();
+      removeOptionsCells.objectAtIndex(0).setTitle("Remove everything but shapes");
+      removeOptionsCells.objectAtIndex(1).setTitle("Remove just text layers");
+      removeOptionsCells.objectAtIndex(2).setTitle("Don't remove anything");
 
-    checkBoxCombineAll = NSButton.alloc().initWithFrame(NSMakeRect(0,0,300,25));
-    checkBoxCombineAll.setButtonType(NSSwitchButton);
-    checkBoxCombineAll.setTitle("Combine shapes in each icon (union)");
-    checkBoxCombineAll.setState(NSOffState);
 
-    window.addAccessoryView(view);
-    window.addAccessoryView(checkBoxCombineAll);
-    return window;
-}
+      var selectedPageOptionsCells = selectedPageOptionsMatrix.cells();
+      selectedPageOptionsCells.objectAtIndex(0).setTitle("Selected groups/artboards");
+      selectedPageOptionsCells.objectAtIndex(1).setTitle("Everything in the current page");
 
-function HandleWindowResponse(window, responseCode) {
-    
-    if (responseCode == "1000") { 
-        if(matrixFormat.cells().indexOfObject(matrixFormat.selectedCell())==0)
-            whatShouldWeRemove = "Everything"
-        else if(matrixFormat.cells().indexOfObject(matrixFormat.selectedCell())==1)
-            whatShouldWeRemove = "Texts";
-        else
-            whatShouldWeRemove = "Nothing";
+      view.addSubview(selectedPageOptionsMatrix);
+      view.addSubview(removeOptionsMatrix);
 
-        if(checkBoxCombineAll.stringValue()==0)
-            combineOption="No";
-        else
-            combineOption="Combine";
-        return "OK";
-	}
-    else if (responseCode == "1001") { 
-        return "Cancel";
-	}
-    return null;
-}
+
+      checkBoxCombineAll = NSButton.alloc().initWithFrame(NSMakeRect(0,0,300,25));
+      checkBoxCombineAll.setButtonType(NSSwitchButton);
+      checkBoxCombineAll.setTitle("Combine shapes in each icon (union)");
+      checkBoxCombineAll.setState(NSOffState);
+
+      window.addAccessoryView(view);
+      window.addAccessoryView(checkBoxCombineAll);
+      return window;
+  }
+
+  function HandleWindowResponse(window, responseCode) {
+
+      if (responseCode == "1000") {
+          if(removeOptionsMatrix.cells().indexOfObject(removeOptionsMatrix.selectedCell())==0)
+              whatShouldWeRemove = "Everything"
+          else if(removeOptionsMatrix.cells().indexOfObject(removeOptionsMatrix.selectedCell())==1)
+              whatShouldWeRemove = "Texts";
+          else
+              whatShouldWeRemove = "Nothing";
+
+          if(selectedPageOptionsMatrix.cells().indexOfObject(selectedPageOptionsMatrix.selectedCell())==0)
+              whichLayers = "SelectedLayers"
+          else
+              whichLayers = "CurrentPage";
+
+
+
+
+          if(checkBoxCombineAll.stringValue()==0)
+              combineOption="No";
+          else
+              combineOption="Combine";
+          return "OK";
+  	}
+      else if (responseCode == "1001") {
+          return "Cancel";
+  	}
+      return null;
+  }
+
 
 
 
           };
-          
