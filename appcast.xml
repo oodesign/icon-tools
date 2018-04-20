@@ -14,7 +14,7 @@
             </ul>
           ]]>
         </description>
-        <enclosure url="https://github.com/oodesign/icon-tools/releases/download/v1.0.6/Icon.tools.sketchplugin.zip" sparkle:version="1.0.6"/>
+        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.6"/>
       </item>
        <item>
           <title>Version 1.0.5</title>
