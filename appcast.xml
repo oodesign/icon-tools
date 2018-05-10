@@ -3,8 +3,19 @@
   <channel>
     <title>Icon tools</title>
     <link>https://github.com/oodesign/icon-tools/blob/master/appcast.xml</link>
-    <description>Sketch.app plugin to clean icons and to prepare them for a clean export without tints and masks.</description>
+    <description>Clean icons of undesired layers, texts and useless groups. Prepare them for a clean export without tints and masks (for those using the tint hack).</description>
     <language>en</language>
+    <item>
+       <title>Version 1.0.7</title>
+       <description>
+         <![CDATA[
+           <ul>
+             <li>Added plugin logo and a more accurate description.</li>
+           </ul>
+         ]]>
+       </description>
+       <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.7"/>
+     </item>
      <item>
         <title>Version 1.0.6</title>
         <description>
