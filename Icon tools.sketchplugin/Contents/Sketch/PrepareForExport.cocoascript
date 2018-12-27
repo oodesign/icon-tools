@@ -1,7 +1,11 @@
           var onRun = function(context) {
                               var doc = context.document;
-var exporticonspage; 
+var exporticonspage;
 var exportedSymbolsCount=0;
+
+var iconidentifier = "Icons/";
+var tintidentifier = "🎨 color";
+
 function CreateWindow(){
 
 
@@ -13,27 +17,24 @@ function CreateWindow(){
     var cancelbutton = window.addButtonWithTitle("Cancel");
 
     window.addTextLabelWithValue("Process icons containing this string");
-    window.addTextFieldWithValue("ExportableIcon/");
+    window.addTextFieldWithValue(iconidentifier);
     window.addTextLabelWithValue("Remove tint symbols with this name");
-    window.addTextFieldWithValue("🎨 color");
+    window.addTextFieldWithValue(tintidentifier);
     return window;
 }
 
-
-var iconidentifier = "ExportableIcon/";
-var tintidentifier = "🎨 color";
 var window = CreateWindow();
 var responseCode = HandleWindowResponse(window, window.runModal());
 
 
 function HandleWindowResponse(window, responseCode) {
-    
-    if (responseCode == "1000") { 
-        iconidentifier = window.viewAtIndex(1).stringValue();  
+
+    if (responseCode == "1000") {
+        iconidentifier = window.viewAtIndex(1).stringValue();
         tintidentifier = window.viewAtIndex(3).stringValue();
         return "OK";
 	}
-    else if (responseCode == "1001") {        
+    else if (responseCode == "1001") {
         return "Cancel";
 	}
     return null;
@@ -47,7 +48,7 @@ if(responseCode == "OK"){
         [doc showMessage: "There are no icons with '"+iconidentifier+"' in its layer name."];
 }
 else if(responseCode == "Cancel")
-{    	
+{
    	[doc showMessage: "Canceled"];
 }
 
@@ -58,7 +59,7 @@ for(var i=0; i < doc.pages().count(); i++){
     if(pagename.localeCompare("ExportIcons") == 0)
     {
         doc.removePage(doc.pages()[i]);
-        
+
     }
 }
 
@@ -75,7 +76,7 @@ for(var i=0; i < allSymbols.count(); i++){
     if(symbolName.indexOf(iconidentifier) >= 0)
     {
         exportingSymbols.push(allSymbols[i]);
-    }        
+    }
 }
 
 var counterX = 0;
@@ -86,7 +87,7 @@ var mingutter = 30;
 var nextRowY=0;
 exportedSymbolsCount = exportingSymbols.length;
 for(var i=0; i < exportingSymbols.length; i++){
-    
+
     var artboard = MSArtboardGroup.new();
     var symbolInstance = exportingSymbols[i].newSymbolInstance();
     var iconWidth = symbolInstance.frame().width();
@@ -112,23 +113,25 @@ for(var i=0; i < exportingSymbols.length; i++){
         locationY = nextRowY;
     }
 
-    artboard.addLayer(symbolInstance);    
+    artboard.addLayer(symbolInstance);
 
     exporticonspage.addLayer(artboard);
 
 
     var detached = symbolInstance.detachByReplacingWithGroup();
-       
+
     var removeLayers = [] ;
     for(var j=0; j<detached.layers().length;j++){
         if(detached.layers()[j].name().toString().localeCompare(tintidentifier)==0){
             removeLayers.push(detached.layers()[j]);
-        }else{    
-            if (detached.layers()[j].className() == "MSShapeGroup") {
-                detached.layers()[j].style().fills().firstObject().color = MSColor.colorWithRed_green_blue_alpha(0.0,0,0,1.0);
-                detached.layers()[j].style().fills().firstObject().isEnabled=true;
-            }    
-
+        }else{
+            var styleFill = MSStyleFill.alloc().init();
+            styleFill.setColor(MSColor.colorWithRed_green_blue_alpha(0.0,0,0,1.0));
+            styleFill.setIsEnabled(true);
+            var newFills = NSMutableArray.alloc().init();
+            newFills.addObject(styleFill);
+            detached.layers()[j].style().removeAllStyleFills();
+            detached.layers()[j].style().addStyleFills(newFills);
         }
     }
     for(var j=0; j<removeLayers.length;j++){
@@ -136,7 +139,7 @@ for(var i=0; i < exportingSymbols.length; i++){
     }
 
     var slice = MSSliceLayer.new();
-   
+
     var exportformat = slice.exportOptions().addExportFormat();
 	exportformat.setFileFormat("svg");
 
@@ -153,7 +156,6 @@ for(var i=0; i < exportingSymbols.length; i++){
 }
 }
 
-        
-          
+
+
           };
-          
