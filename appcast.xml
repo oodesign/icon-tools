@@ -6,16 +6,27 @@
     <description>Clean icons of undesired layers, texts and useless groups. Prepare them for a clean export without tints and masks (for those using the tint hack).</description>
     <language>en</language>
     <item>
-       <title>Version 1.0.8</title>
+       <title>Version 1.0.9</title>
        <description>
          <![CDATA[
            <ul>
-             <li>Fixes a bug that was causing to crash and not complete full list of icons.</li>
+             <li>Support for Sketch 53</li>
            </ul>
          ]]>
        </description>
-       <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.8"/>
+       <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.9"/>
      </item>
+     <item>
+        <title>Version 1.0.8</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Fixes a bug that was causing to crash and not complete full list of icons.</li>
+            </ul>
+          ]]>
+        </description>
+        <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.8"/>
+      </item>
      <item>
         <title>Version 1.0.7</title>
         <description>
