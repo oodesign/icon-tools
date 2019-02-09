@@ -118,7 +118,11 @@ for(var i=0; i < exportingSymbols.length; i++){
     exporticonspage.addLayer(artboard);
 
 
-    var detached = symbolInstance.detachByReplacingWithGroup();
+    //Sketch <53
+    //var detached = symbolInstance.detachByReplacingWithGroup();
+
+    //Sketch >=53
+    var detached = symbolInstance.detachStylesAndReplaceWithGroupRecursively(true);
 
     var removeLayers = [] ;
     for(var j=0; j<detached.layers().length;j++){
