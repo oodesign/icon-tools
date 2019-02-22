@@ -1,5 +1,5 @@
 {
-  "compatibleVersion": 53,
+  "compatibleVersion": 48,
   "appcast" : "https://raw.githubusercontent.com/oodesign/icon-tools/master/appcast.xml",
   "commands" : [
     {
@@ -24,7 +24,7 @@
     "items" : ["cleanicons","prepareexport"]
   },
   "identifier" : "com.example.sketch.0a887f2f-c79f-4316-b19f-ca74b889bbc8",
-  "version" : "1.0.9",
+  "version" : "1.0.10",
   "description" : "Clean icons of undesired layers, texts and useless groups. Prepare them for a clean export without tints and masks (for those using the tint hack).",
   "authorEmail" : "oodesignux@gmail.com",
   "author": "oodesign",
