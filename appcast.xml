@@ -6,6 +6,17 @@
     <description>Clean icons of undesired layers, texts and useless groups. Prepare them for a clean export without tints and masks (for those using the tint hack).</description>
     <language>en</language>
     <item>
+       <title>Version 1.0.11</title>
+       <description>
+         <![CDATA[
+           <ul>
+             <li>Added Help to Menu</li>
+           </ul>
+         ]]>
+       </description>
+       <enclosure url="https://github.com/oodesign/icon-tools/archive/master.zip" sparkle:version="1.0.11"/>
+     </item>
+    <item>
        <title>Version 1.0.10</title>
        <description>
          <![CDATA[
